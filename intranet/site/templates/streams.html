@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Streams{% endblock page_title %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <table class="table table-bordered table-condensed">
+        <caption>
+          <h2>Stream list</h2>
+        </caption>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Game</th>
+            <th>Title</th>
+          </tr>
+          <tr>
+            <th>Last videos</th>
+            <th>Date</th>
+            <th>Length</th>
+            <th>Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for stream in streams %}
+          <tr class="info" id="stream-{{ stream.user }}">
+            <td rowspan="4" class="stream-image"><img src="" /></td>
+            <td class="stream-user"><a href="">{{ stream.user }}</a></td>
+            <td class="stream-game"></td>
+            <td class="stream-title"></td>
+          </tr>
+          {% for item in 'xxx' %}
+          <tr class="info">
+            <td class="video-date-{{ forloop.counter0 }}"></td>
+            <td class="video-length-{{ forloop.counter0 }}"></td>
+            <td class="video-title-{{ forloop.counter0 }}"></td>
+          </tr>
+          {% endfor %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}
