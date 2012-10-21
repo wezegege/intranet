@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from intranet import local_settings
+from intranet.settings import local_settings
 from django.core.urlresolvers import reverse
 
 def all(request):

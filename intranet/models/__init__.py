@@ -1,4 +1,4 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-SITE_NAME='Intranet'
+from intranet.models.streams import *

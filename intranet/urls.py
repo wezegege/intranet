@@ -5,6 +5,7 @@ from intranet.utils.shortcuts import Application
 
 app = Application()
 
-import intranet.site.views
+import intranet.views
 
 urlpatterns = app.patterns()
+

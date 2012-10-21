@@ -3,15 +3,16 @@
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.conf.urls import patterns, url
+from django.conf.urls.defaults import include, patterns, url
+
 import os.path
 
 class Application(object):
     def __init__(self):
         self.views = list()
 
-    def view(self, name):
-        result = View(name)
+    def view(self, name, root=None):
+        result = View(name, root)
         self.views.append(result)
         return result
 
@@ -21,9 +22,11 @@ class Application(object):
             result += view.pattern()
         return result
 
+
 class View(object):
-    def __init__(self, module):
+    def __init__(self, module, root=None):
         self.module = module
+        self.root = root
         self.urls = list()
         self.simples = list()
 
@@ -48,7 +51,12 @@ class View(object):
         if self.simples:
             result += patterns('intranet.utils.shortcuts',
                     *self.simples)
+        if self.root:
+            result = patterns(self.module,
+                    (self.root, include(result)),
+                    )
         return result
+
 
 def render_with_context(request, template, *args, **kwargs):
     return render_to_response(template, *args,

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title %}Streams{% endblock page_title %}
+
+{% block meta %}
+<link href="{% static 'css/streams.css' %}" rel="stylesheet" type="text/css" />
+{% endblock meta %}
+
+{% block content %}
+<table class="table table-bordered table-striped table-condensed">
+  <caption>Streams</caption>
+  <tbody id="channels">
+  </tbody>
+</table>
+{% endblock content %}
+
+{% block javascript %}
+<script type="text/javascript" src="streams.js"></script>
+{% endblock javascript %}
