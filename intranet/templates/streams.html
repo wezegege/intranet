@@ -8,11 +8,25 @@
 {% endblock meta %}
 
 {% block content %}
-<table class="table table-bordered table-striped table-condensed">
-  <caption>Streams</caption>
-  <tbody id="channels">
-  </tbody>
-</table>
+  <div class="span5 offset1">
+    <div class="row">
+      <form class="form-search" action="" name="add_stream">
+        <p class="input-append">
+          <input type="text" name="channel" id="add_stream" class="search-query" />
+          <input class="btn btn-primary" type="submit" id="submit_add" value="Add stream" />
+        </p>
+      </form>
+    </div>
+    <div class="row">
+    <table class="table table-bordered table-striped table-condensed">
+      <caption>Streams</caption>
+      <tbody id="channels">
+        <tr id="stream-separator"><td colspan="2"><a>Show/Hide offline streams</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+</div>
 {% endblock content %}
 
 {% block javascript %}

@@ -102,7 +102,7 @@ def update_streams(request):
 
 @view.route('^channels/$')
 def get_channels(request):
-  result = [channel.to_dict() for channel in Channel.objects.all()]
+  result = [channel.to_dict() for channel in Channel.objects.order_by('name').all()]
   return HttpResponse(json.dumps(result), mimetype='application/json')
 
 @view.route('^videos/$')

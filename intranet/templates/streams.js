@@ -28,7 +28,7 @@ function get_streams() {
 };
 
 function create_container() {
-  var container = $(' <tr class="channel"><td><img class="channel-logo" /></td> <td><a class="channel-title"><strong></strong></a> <span class="channel-game"></span><br /> <small class="channel-status"></small> </td></tr> ');
+  var container = $(' <tr class="channel"><td class="channel-logo"><img class="img-rounded" /></td> <td><a class="channel-title"><strong></strong></a> <span class="channel-game"></span><br /> <small class="channel-status"></small> </td></tr> ');
   return container;
 };
 
@@ -41,7 +41,7 @@ function list_channels(data) {
 
 function update_stream(container, channel) {
   container.attr('stream', channel.name);
-  container.find('img.channel-logo').attr('src', channel.logo);
+  container.find('td.channel-logo img').attr('src', channel.logo);
   container.find('a.channel-title strong').text(channel.display_name);
   container.find('a.channel-title').attr('href', channel.url).attr('alt', channel.name);
   if (channel.game != null) {
@@ -52,7 +52,7 @@ function update_stream(container, channel) {
   container.find('small.channel-status').text(channel.status);
   if (channel.streaming && ! container.hasClass('success')) {
     container.removeClass('info').addClass('success');
-    $('tbody#channels').prepend(container);
+    $('tr#stream-separator').before(container);
   } else if (!channel.streaming && ! container.hasClass('info')) {
     container.removeClass('success').addClass('info');
     $('tbody#channels').append(container);
@@ -79,4 +79,27 @@ $(document).ready(function() {
     setTimeout(update_streams, 30000);
   };
   update_streams();
+});
+
+$(function() {
+  $("#submit_add").click(function() {
+    $.ajax({
+      type : "GET",
+      url : "{% url 'add_stream' %}",
+      data : {'channel' : $("input#add_stream").val()},
+      dataType : "json",
+      success : confirm_add,
+    });
+    return false;
+  });
+});
+
+function confirm_add(data) {
+  update_streams();
+};
+
+$(function() {
+  $("#stream-separator").click(function() {
+    $("tr.channel.info").toggle();
+  });
 });
