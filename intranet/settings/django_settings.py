@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'intranet',
     'streaming',
+    'tournaments',
 )
 
 # A sample logging configuration. The only tangible logging
