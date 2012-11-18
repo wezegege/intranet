@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block page_title %}{% endblock page_title %} - {{ constants.SITE_NAME }}</title>
+    {% if debug|default:True %}
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css" />
+    {% else %}
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    {% endif %}
+    {% block meta %}{% endblock meta %}
+  </head>
+
+  <body>
+    {% block menu %}
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <nav class="nav">
+            <li><a class="brand" href="{% url 'home' %}">{{ constants.SITE_NAME }}</a></li>
+            {% for id, name, link in menu %}
+            <li><a href="{{ link }}" id="menu-{{ id }}">{{ name }}</a></li>
+            {% endfor %}
+          </nav>
+        </div>
+      </div>
+    </div>
+    {% endblock menu %}
+
+    <div class="row">
+      <div class="span4 offset2" id="messages">
+        <p id="debug" />
+      </div>
+    </div>
+    {% block content %}{% endblock content %}
+
+    {% block footer %}{% endblock footer %}
+
+    <!-- javascript -->
+    {% if debug|default:True %}
+    <script src="{% static 'jquery/jquery.js' %}"></script>
+    {% else %}
+    <script src="{% static 'jquery/jquery.min.js' %}" ></script>
+    {% endif %}
+    {% block javascript %}{% endblock javascript %}
+  </body>
+</html>
