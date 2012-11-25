@@ -15,7 +15,7 @@ import json
 
 view = app.view(__name__, root=r'^streams/')
 
-view.simple('^streams.js$', 'streams.js')
+view.simple('^list_streams.js$', 'list_streams.js')
 
 @view.route('^$')
 def streams(request):

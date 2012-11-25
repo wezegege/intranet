@@ -19,8 +19,8 @@
         <div class="container">
           <nav class="nav">
             <li><a class="brand" href="{% url 'home' %}">{{ constants.SITE_NAME }}</a></li>
-            {% for id, name, link in menu %}
-            <li><a href="{{ link }}" id="menu-{{ id }}">{{ name }}</a></li>
+            {% for label, name in menu %}
+            <li><a href="{% url name %}" id="menu-{{ name }}">{{ label }}</a></li>
             {% endfor %}
           </nav>
         </div>

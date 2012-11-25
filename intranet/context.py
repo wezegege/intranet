@@ -15,7 +15,11 @@ def constants(request):
   return {'constants' : local_settings}
 
 def menu(request):
-  items = ['Home', 'Streams', 'Music', 'Torrents', 'Git', 'Config']
-  return {
-      'menu' : [(item.lower(), item, reverse(item.lower())) for item in items],
-      }
+  items = [
+      ('Home', 'home'),
+      ('Streams', 'streams'),
+      ('Music', 'music'),
+      ('Torrents', 'torrents'),
+      ('Git', 'git'),
+      ('Config', 'config'),]
+  return {'menu' : items}
