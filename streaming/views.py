@@ -8,7 +8,7 @@ from intranet.settings.local_settings import TWITCH_API, STREAM_UPDATE
 
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
-from datetime import datetime
+from django.utils.timezone import now
 
 import urllib.request
 import json
@@ -69,7 +69,7 @@ def update_channel(channel, data=None):
     data = json_request(TWITCH_API['channel'].format(channel=channel))
   for field in ('name', 'display_name', 'logo', 'status', 'game', 'url'):
     setattr(item, field, data[field])
-    item.channel_timestamp = datetime.now()
+    item.channel_timestamp = now()
     item.save()
   return item
 
@@ -78,9 +78,6 @@ def update_channel(channel, data=None):
 def update_streams(request):
   channels = set(item['name']
       for item in Channel.objects.values('name'))
-  #channels = set(item['name']
-  #    for item in Channel.objects.filter(
-  #        stream_timestamp__lte=(datetime.now() + STREAM_UPDATE['stream'])).values('name'))
   data = json_request(TWITCH_API['stream'].format(channels=','.join(channels)))
   good = set()
   for stream in data['streams']:
@@ -89,12 +86,12 @@ def update_streams(request):
     item = update_channel(name, stream['channel'])
     if item.streaming == False:
       item.streaming = True
-    item.stream_timestamp = datetime.now()
+    item.stream_timestamp = now()
     item.save()
   todo = channels - good
 
   toupdate = Channel.objects.filter(name__in=todo, streaming=True).update(streaming=False)
-  Channel.objects.filter(name__in=todo).update(stream_timestamp=datetime.now())
+  Channel.objects.filter(name__in=todo).update(stream_timestamp=now())
   result = [item.to_dict() for item  in Channel.objects.all()]
 
   return HttpResponse(json.dumps(result), mimetype='application/json')

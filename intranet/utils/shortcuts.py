@@ -3,7 +3,7 @@
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.conf.urls.defaults import include, patterns, url
+from django.conf.urls import include, patterns, url
 
 import os.path
 
